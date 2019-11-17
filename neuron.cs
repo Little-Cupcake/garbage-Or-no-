@@ -18,7 +18,7 @@ namespace siec_neuronowa
         public double Hidden(double d1, double d2, double waga)
         {
             input = d1 + d2;
-            output = Sigmoid(input) * waga;
+            output = Sigmoid(input* waga) ;
             return output ;
         }
         
