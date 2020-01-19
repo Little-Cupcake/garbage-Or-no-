@@ -1,0 +1,88 @@
+/* "led.c" - programik do testowania œrodowiska WinAVR */
+/* uk³ad ATmega 1MHz */
+/* PB0,PB1 - diody LED; PD0 - przycisk */
+
+#define F_CPU 1000000L
+#include <avr/io.h>
+#include <util/delay.h>                
+
+/**
+int main(void)
+{
+    DDRA  |= _BV(0)|_BV(1)|_BV(2)|_BV(3)|_BV(4)|_BV(5)|_BV(6)|_BV(7);
+    PORTA |= _BV(0);
+    PORTA &= ~_BV(1);
+	PORTA |= _BV(2);
+	PORTA &= ~_BV(3);
+	PORTA |= _BV(4);
+	PORTA &= ~_BV(5);
+	PORTA |= _BV(6);
+	PORTA &= ~_BV(7);
+	PORTD |=  _BV(0);
+
+    while (1) 
+    {
+        PORTA ^=_BV(0);
+        PORTA ^=_BV(1);
+		PORTA ^=_BV(2);
+		PORTA ^=_BV(3);
+		PORTA ^=_BV(4);
+		PORTA ^=_BV(5);
+		PORTA ^=_BV(6);
+		PORTA ^=_BV(7);
+		        
+        _delay_ms((PIND & _BV(0))? 1000: 200);
+    }
+}
+**/
+int main(void)
+{
+	DDRA = 0xff;
+	PORTA = 0x00;
+	PORTD |= _BV(0);
+	
+  while(1)
+  {
+    /* Jeœli pierwszy przycisk wciœniêty */
+    if(!(PIND & _BV(0)))
+	{
+	PORTA = 0x08;
+	_delay_ms(200);
+	PORTA =	0x04;
+	_delay_ms(200);
+	PORTA = 0x02;
+	_delay_ms(200);
+	PORTA = 0x01;
+	_delay_ms(200);
+	PORTA = 0x80;
+	_delay_ms(200);
+	PORTA = 0x40;
+	_delay_ms(200);
+	PORTA = 0x20;
+	_delay_ms(200);
+	PORTA = 0x10;
+	_delay_ms(200);
+	};
+	
+	if((PIND ^ _BV(0)))
+	{
+	PORTA = 0x10;
+	_delay_ms(200);
+	PORTA =	0x20;
+	_delay_ms(200);
+	PORTA = 0x40;
+	_delay_ms(200);
+	PORTA = 0x80;
+	_delay_ms(200);
+	PORTA = 0x01;
+	_delay_ms(200);
+	PORTA = 0x02;
+	_delay_ms(200);
+	PORTA = 0x04;
+	_delay_ms(200);
+	PORTA = 0x08;
+	_delay_ms(200);
+	};
+}
+	
+}
